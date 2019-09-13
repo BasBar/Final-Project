@@ -1,0 +1,54 @@
+h1, h2, h3, h4, h5, h6 {
+    /*font-family: AppleGothic;*/
+}
+
+.bgmain {
+    background: url("../img/ristoranteBg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.bg-indexPage {
+    background: #0099F7; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgba(249, 249, 249, 0.96), rgba(255, 255, 255, 0.78)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, rgba(249, 249, 249, 0.96), rgba(255, 255, 255, 0.78)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    box-shadow: black 0px 0px 30px;
+}
+
+.bg-ristorante {
+    background: #0099F7; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, rgba(249, 249, 249, 0.96), rgba(255, 255, 255, 0.98)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, rgba(249, 249, 249, 0.96), rgba(255, 255, 255, 0.98)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    box-shadow: black 0px 0px 30px;
+}
+
+a.bg-ristorante:focus, a.bg-ristorante:hover, button.bg-ristorante:focus, button.bg-ristorante:hover {
+    background-color: rgba(218, 224, 229, 0.85) !important
+}
+
+.btn-management {
+    height: 125px;
+    width: 175px;
+    border-radius: 10px;
+}
+
+.manage-icon {
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 80%;
+}
+
+.manage-icon a {
+    text-decoration: none;
+    color: slategrey;
+    transition-duration: 0.3s;
+}
+
+.manage-icon a:hover {
+    transition-duration: 0.4s;
+    color: greenyellow;
+}

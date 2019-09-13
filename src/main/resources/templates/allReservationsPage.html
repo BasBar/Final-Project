@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body class="bgmain">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div th:insert="fragments :: linkToManagement"></div>
+</nav>
+<br>
+<div class="container bg-ristorante">
+    <div class="row align-items-center text-center">
+        <div class="col-lg-12">
+            <br>
+            <h2>Reservations</h2>
+            <table class="table table-sm table-hover">
+                <thead>
+                <tr>
+                    <th>Date and Time</th>
+                    <th>Table</th>
+                    <th>Client</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reservation: ${allReservations}">
+                    <td th:text="${reservation.dateAndTime}"></td>
+                    <td>
+                        <button class="btn btn-outline-dark" th:text="${reservation.tables.id}"/>
+                    </td>
+
+                    <td th:text="${reservation.client.name} + ' '
+                    + ${reservation.client.surname}"></td>
+
+                    <td>
+                        <form action="#" th:action="@{'/deleteReservationAction/{id}'(id=${reservation.id})}"
+                              th:method="delete">
+                            <button class="btn btn-outline-danger" type="submit"
+                                    style='font-size:18px'><i class='far fa-trash-alt'></i></button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
+    <hr>
+    <div class="row align-items-center">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <h2>Add Reservation</h2>
+
+            <form action="#" th:action="@{/addReservationAction}" th:object="${reservationForm}" th:method="post">
+                <div class="form-group">
+
+                    <label for="dateAndTime">Date and Time</label>
+                    <input id="dateAndTime" class="form-control"
+                           type="datetime-local" th:field="${reservationForm.dateAndTime}"/>
+
+                    <legend>Select Client</legend>
+                    <select th:field="${reservationForm.clientId}" name="client">
+                        <option th:each="client : ${allClients}"
+                                th:value="${client.getId()}"
+                                th:text="${client.name} + ' ' + ${client.surname}"/>
+                    </select>
+
+                    <legend>Select Table</legend>
+                    <div th:each="table : ${allTables}">
+                        <input type="checkbox"
+                               id="chosenTable"
+                               th:field="${reservationForm.tableIds}"
+                               th:value="${table.id}"
+                               th:text="${table.size}">
+                    </div>
+
+<!--                    <select th:field="${reservationForm.tablesId}" name="tables">-->
+<!--                        <option th:if="!${tables.occupied}"-->
+<!--                                th:each="tables : ${allTables}"-->
+<!--                                th:value="${tables.getId()}"-->
+<!--                                th:text="${tables.size} + ' seats'"/>-->
+<!--                    </select>-->
+
+
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Add" class="btn btn-outline-primary"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4">
+
+
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

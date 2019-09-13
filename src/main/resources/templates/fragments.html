@@ -1,0 +1,47 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<nav class="navbar navbar-light" th:fragment="mainNavbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/allClientsPage">Clients</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/allMenusPage">Menu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/allReservationsPage">Reservation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/tablesPage">Tables</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/allOrdersPage">Orders</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/ristoranteMenu">Unsecured Menu</a>
+        </li>
+
+    </ul>
+
+
+</nav>
+
+
+<nav class="navbar navbar-light" th:fragment="unsecuredNavbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/ristoranteMenu">Our Menu</a>
+        </li>
+
+    </ul>
+
+
+</nav>
+<a th:fragment="linkToManagement" href="/loggedIn">
+<button class="btn btn-outline-light">GO BACK</button>
+</a>

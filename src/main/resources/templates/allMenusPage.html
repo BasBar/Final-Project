@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Menus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+
+<body class="bgmain">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div th:insert="fragments :: linkToManagement"></div>
+</nav>
+<br>
+<div class="container bg-ristorante">
+    <div class="row align-items-center text-center">
+        <div class="col-lg-12">
+            <br>
+            <h2>Menus</h2>
+            <table class="table table-sm table-hover">
+                <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="menu: ${allMenus}">
+                    <td th:text="${menu.number}"></td>
+                    <td th:text="${menu.category}"></td>
+                    <td th:text="${menu.name}"></td>
+                    <td th:text="${menu.price}"></td>
+                    <td>
+                        <form action="#" th:action="@{'/deleteMenuAction/{id}'(id=${menu.id})}" th:method="delete">
+                            <button class="btn btn-outline-danger" type="submit"
+                                    style='font-size:18px'><i class='far fa-trash-alt'></i></button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
+    <hr>
+    <div class="row align-items-center">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <h2>Add to Menu</h2>
+
+            <form action="#" th:action="@{/addMenuAction}" th:object="${newMenu}" th:method="post">
+                <div class="form-group">
+
+                    <label>Category</label>
+                    <select th:field="${newMenu.category}">
+                            <option th:value="'Drink'" th:text="Drink"></option>
+                            <option th:value="'Dinner'" th:text="Dinner"></option>
+                            <option th:value="'Dessert'" th:text="Dessert"></option>
+                            <option th:value="'Vegetarian'" th:text="Vegetarian"></option>
+                            <option th:value="'Wine'" th:text="Wine"></option>
+                    </select>
+
+                    <br>
+
+                    <label for="menusNumber">Number</label>
+                    <input id="menusNumber" class="form-control" placeholder="Number"
+                           type="text" th:field="${newMenu.number}"/>
+
+                    <!--<label for="menusCategory">Category</label>
+                    <input id="menusCategory" class="form-control" placeholder="Category"
+                           type="text" th:field="${newMenu.category}"/>-->
+
+
+                    <label for="menusName">Name</label>
+                    <input id="menusName" class="form-control" placeholder="Name"
+                           type="text" th:field="${newMenu.name}"/>
+
+                    <label for="menusPrice">Price</label>
+                    <input id="menusPrice" class="form-control" placeholder="Price"
+                           type="text" th:field="${newMenu.price}"/>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Add" class="btn btn-outline-primary"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>
+</body>
+</html>
