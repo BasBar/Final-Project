@@ -9,9 +9,11 @@ import java.util.Set;
 
 @Entity
 public class ReservationEntity {
+
     @Id
     @GeneratedValue
     private Long id;
+
     @DateTimeFormat(pattern = "dd/MM/yyyy''hh:mm")
     private LocalDateTime dateAndTime;
 

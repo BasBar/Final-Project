@@ -7,7 +7,7 @@ import java.util.Set;
 public class ReservationDTO {
 
     private Long id;
-    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateAndTime;
 

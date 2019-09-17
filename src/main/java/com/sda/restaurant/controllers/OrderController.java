@@ -17,6 +17,7 @@ import java.util.List;
 
 @Controller
 public class OrderController {
+
     private OrderService orderService;
     private OrderRepository orderRepository;
     private ReservationService reservationService;
@@ -52,7 +53,6 @@ public class OrderController {
         return redirectView;
     }
 
-    // copy to orders
     @PutMapping("/setPaid/{id}")
     public RedirectView setPaidOrder(@PathVariable Long id) {
         orderService.setPaidOrder(id);
@@ -60,6 +60,7 @@ public class OrderController {
         redirectView.setUrl("/allOrdersPage");
         return redirectView;
     }
+
     @PostMapping("/setTipAmount/{id}")
     public RedirectView updateTipAmount(@PathVariable Long id, @RequestParam Float tip) {
         orderService.updateTipAmount(id, tip);
@@ -67,7 +68,6 @@ public class OrderController {
         redirectView.setUrl("/allOrdersPage");
         return redirectView;
     }
-    //end of.
 
     private void setupModel(Model model) {
         List<ReservationDTO> allReservations = reservationService.getAllReservations();

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title>Menus</title>
@@ -66,17 +67,11 @@
                             <option th:value="'Vegetarian'" th:text="Vegetarian"></option>
                             <option th:value="'Wine'" th:text="Wine"></option>
                     </select>
-
                     <br>
 
                     <label for="menusNumber">Number</label>
                     <input id="menusNumber" class="form-control" placeholder="Number"
                            type="text" th:field="${newMenu.number}"/>
-
-                    <!--<label for="menusCategory">Category</label>
-                    <input id="menusCategory" class="form-control" placeholder="Category"
-                           type="text" th:field="${newMenu.category}"/>-->
-
 
                     <label for="menusName">Name</label>
                     <input id="menusName" class="form-control" placeholder="Name"
