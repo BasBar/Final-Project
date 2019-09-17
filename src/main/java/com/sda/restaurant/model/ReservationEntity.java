@@ -9,23 +9,18 @@ import java.util.Set;
 
 @Entity
 public class ReservationEntity {
-
     @Id
     @GeneratedValue
     private Long id;
-
     @DateTimeFormat(pattern = "dd/MM/yyyy''hh:mm")
     private LocalDateTime dateAndTime;
 
-    private Boolean occupied;
-
-    @OneToOne //(cascade = CascadeType.ALL)
+    @OneToOne
     private ClientEntity client;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "reservation_tables",
-            joinColumns = {@JoinColumn(name = "reservation_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tables_id")})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(joinColumns = {@JoinColumn},
+            inverseJoinColumns = {@JoinColumn})
     private Set<TablesEntity> tables = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -34,6 +29,12 @@ public class ReservationEntity {
 
 
     public ReservationEntity() {
+    }
+
+    public ReservationEntity(LocalDateTime dateAndTime, ClientEntity client, Set<TablesEntity> tables) {
+        this.dateAndTime = dateAndTime;
+        this.client = client;
+        this.tables = tables;
     }
 
     public Long getId() {
@@ -68,14 +69,6 @@ public class ReservationEntity {
         this.client = client;
     }
 
-    public Boolean getOccupied() {
-        return occupied;
-    }
-
-    public void setOccupied(Boolean occupied) {
-        this.occupied = occupied;
-    }
-
     public Set<TablesEntity> getTables() {
         return tables;
     }
@@ -83,4 +76,5 @@ public class ReservationEntity {
     public void setTables(Set<TablesEntity> tables) {
         this.tables = tables;
     }
+
 }

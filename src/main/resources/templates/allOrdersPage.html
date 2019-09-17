@@ -25,7 +25,7 @@
                 <thead>
                 <tr>
                     <th>Order ID</th>
-                    <th>Table</th>
+                    <th>Table(s)</th>
                     <th>Reservation</th>
                     <th>Order</th>
                     <th>Total</th>
@@ -37,21 +37,22 @@
                 <tr th:each="order: ${allOrders}">
                     <td th:text="${order.id}"></td>
                     <td>
-                        <button class="btn btn-outline-dark" th:text="${order.reservation.tables.getId()}"/>
+                        <button class="btn btn-outline-dark">
+                            <div th:each="table: ${order.reservation.tables}">
+                                <span th:text="${table.id}"></span>
+                            </div>
+                        </button>
                     </td>
                     <td th:text="${order.reservation.client.getName()} + ' '
                     + ${order.reservation.client.getSurname()}"></td>
-                    <!--                    <td th:text="${order.menu.name}"></td>-->
+
                     <td>
                         <div th:each="menuItem: ${order.menu}">
                             <span th:text="${menuItem.name + ' ' + menuItem.price + ' PLN'}"></span>
                         </div>
                     </td>
 
-                    <!--                    <td th:text="${order.totalPrice + ' PLN'}"></td>-->
                     <td width="200px">
-                        <!--<button style="width: 200px;" class="btn btn-primary"
-                                th:if="${order.paid}" th:text="${order.totalPrice + ' PLN      PAID'}"></button>-->
                         <div class="input-group mb-3" th:if="${order.paid}">
                             <div type="text" class="form-control" th:text="${order.totalPrice + ' PLN'}"/>
                             <div class="input-group-append">
@@ -125,8 +126,7 @@
                         <option th:each="reservation : ${AllReservations}"
                                 th:value="${reservation.getId()}"
                                 th:text="${reservation.client.name} + ' '
-                                + ${reservation.client.surname} + ' '
-                                + ', table id = ' + ${reservation.tables.id}"/>
+                                + ${reservation.client.surname}"/>
                     </select>
 
                     <legend>Select Menu</legend>
@@ -137,12 +137,6 @@
                                th:value="${menu.id}"
                                th:text="${menu.name}">
                     </div>
-                    <!--<select th:field="${orderForm.menuItems.add(menuId1)}" name="menu">
-                        <option th:each="menu : ${allMenus}"
-                                th:value="${menu.getId()}"
-                                th:text="${menu.name}"/>
-                    </select>-->
-
 
                 </div>
                 <div class="form-group text-center">

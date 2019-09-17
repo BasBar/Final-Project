@@ -1,7 +1,6 @@
 package com.sda.restaurant.form;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
 
 public class ReservationForm {
@@ -11,7 +10,7 @@ public class ReservationForm {
     private Boolean occupied;
 
     private Long clientId;
-    private Long[] tableIds;
+    private Long[] tablesId;
 
     public ReservationForm() {
 
@@ -33,12 +32,12 @@ public class ReservationForm {
         this.dateAndTime = dateAndTime;
     }
 
-    public Long[] getTableIds() {
-        return tableIds;
+    public Long[] getTablesId() {
+        return tablesId;
     }
 
-    public void setTableIds(Long[] tableIds) {
-        this.tableIds = tableIds;
+    public void setTablesId(Long[] tablesId) {
+        this.tablesId = tablesId;
     }
 
     public Boolean getOccupied() {
