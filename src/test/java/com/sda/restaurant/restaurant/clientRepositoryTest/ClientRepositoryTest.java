@@ -1,9 +1,9 @@
 package com.sda.restaurant.restaurant.clientRepositoryTest;
 
-import com.sda.restaurant.restaurant.controllers.ClientController;
-import com.sda.restaurant.restaurant.model.ClientEntity;
-import com.sda.restaurant.restaurant.repositories.ClientRepository;
-import com.sda.restaurant.restaurant.services.ClientService;
+import com.sda.restaurant.controllers.ClientController;
+import com.sda.restaurant.model.ClientEntity;
+import com.sda.restaurant.repositories.ClientRepository;
+import com.sda.restaurant.services.ClientService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
