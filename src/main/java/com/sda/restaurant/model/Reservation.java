@@ -8,7 +8,8 @@ import java.util.Set;
 
 
 @Entity
-public class ReservationEntity {
+@Table(name = "reservation_entity")
+public class Reservation {
 
     @Id
     @GeneratedValue
@@ -18,22 +19,22 @@ public class ReservationEntity {
     private LocalDateTime dateAndTime;
 
     @OneToOne
-    private ClientEntity client;
+    private Client client;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(joinColumns = {@JoinColumn},
             inverseJoinColumns = {@JoinColumn})
-    private Set<TablesEntity> tables = new HashSet<>();
+    private Set<Tables> tables = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="reservation_id",referencedColumnName = "id")
-    private OrderEntity order;
+    private Order order;
 
 
-    public ReservationEntity() {
+    public Reservation() {
     }
 
-    public ReservationEntity(LocalDateTime dateAndTime, ClientEntity client, Set<TablesEntity> tables) {
+    public Reservation(LocalDateTime dateAndTime, Client client, Set<Tables> tables) {
         this.dateAndTime = dateAndTime;
         this.client = client;
         this.tables = tables;
@@ -55,27 +56,27 @@ public class ReservationEntity {
         this.dateAndTime = dateAndTime;
     }
 
-    public OrderEntity getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(OrderEntity order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
-    public ClientEntity getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(ClientEntity client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
-    public Set<TablesEntity> getTables() {
+    public Set<Tables> getTables() {
         return tables;
     }
 
-    public void setTables(Set<TablesEntity> tables) {
+    public void setTables(Set<Tables> tables) {
         this.tables = tables;
     }
 

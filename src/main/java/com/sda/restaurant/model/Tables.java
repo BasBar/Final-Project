@@ -9,8 +9,8 @@ import java.util.Set;
  * This class is for table object used in restaurants.
  */
 @Entity
-@Table(name = "TablesEntity")
-public class TablesEntity {
+@Table(name = "table_entity")
+public class Tables {
 
     @Id
     @GeneratedValue
@@ -19,12 +19,12 @@ public class TablesEntity {
     private Boolean occupied;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "tables")
-    private Set<ReservationEntity> reservationEntity = new HashSet<>();
+    private Set<Reservation> reservationEntity = new HashSet<>();
 
-    public TablesEntity() {
+    public Tables() {
     }
 
-    public TablesEntity(int size) {
+    public Tables(int size) {
 
         this.size = size;
         this.occupied = Boolean.FALSE;
@@ -54,11 +54,11 @@ public class TablesEntity {
         this.occupied = occupied;
     }
 
-    public Set<ReservationEntity> getReservationEntity() {
+    public Set<Reservation> getReservationEntity() {
         return reservationEntity;
     }
 
-    public void setReservationEntity(Set<ReservationEntity> reservationEntity) {
-        this.reservationEntity = reservationEntity;
+    public void setReservationEntity(Set<Reservation> reservation) {
+        this.reservationEntity = reservation;
     }
 }

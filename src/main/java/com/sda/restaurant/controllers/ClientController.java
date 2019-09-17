@@ -2,7 +2,7 @@ package com.sda.restaurant.controllers;
 
 
 import com.sda.restaurant.DTO.ClientDTO;
-import com.sda.restaurant.model.ClientEntity;
+import com.sda.restaurant.model.Client;
 import com.sda.restaurant.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +48,7 @@ public class ClientController {
     private void setupModel(Model model) {
         List<ClientDTO> allClients = clientService.getAllClients();
         model.addAttribute("allClients", allClients);
-        model.addAttribute("newClient", new ClientEntity());
+        model.addAttribute("newClient", new Client());
         model.addAttribute("deleteClientId", "");
     }
 }

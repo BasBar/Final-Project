@@ -5,31 +5,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class OrderEntity {
+@Table(name = "order_entity")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne
-    private ReservationEntity reservation;
+    private Reservation reservation;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "order_menu",
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "menu_id")})
-    private Set<MenuEntity> menu = new HashSet<>();
+    private Set<Menu> menus = new HashSet<>();
 
     private Double totalPrice;
-    private Boolean isPaid;
+    private Boolean isPaid = null;
     private Float tip;
 
-    public OrderEntity() {
+    public Order() {
     }
 
-    public OrderEntity(ReservationEntity reservation, Set<MenuEntity> menu, Double totalPrice) {
+    public Order(Reservation reservation, Set<Menu> menus, Double totalPrice) {
         this.reservation = reservation;
-        this.menu = menu;
+        this.menus = menus;
         this.totalPrice = totalPrice;
     }
 
@@ -41,20 +42,20 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public ReservationEntity getReservation() {
+    public Reservation getReservation() {
         return reservation;
     }
 
-    public void setReservation(ReservationEntity reservation) {
+    public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
 
-    public Set<MenuEntity> getMenu() {
-        return menu;
+    public Set<Menu> getMenus() {
+        return menus;
     }
 
-    public void setMenu(Set<MenuEntity> menu) {
-        this.menu = menu;
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
     }
 
     public Double getTotalPrice() {

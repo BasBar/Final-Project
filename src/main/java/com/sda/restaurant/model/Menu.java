@@ -9,7 +9,8 @@ import java.util.Set;
  * This class contains information about the menu items in the restaurant
  */
 @Entity
-public class MenuEntity {
+@Table(name = "menu_entity")
+public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,13 +20,13 @@ public class MenuEntity {
     private String name;
     private Float price;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "menu")
-    private Set<OrderEntity> orderEntity = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "menus")
+    private Set<Order> orders = new HashSet<>();
 
-    public MenuEntity() {
+    public Menu() {
     }
 
-    public MenuEntity(Integer number, String category, String name, Float price) {
+    public Menu(Integer number, String category, String name, Float price) {
         this.number = number;
         this.category = category;
         this.name = name;
@@ -72,12 +73,12 @@ public class MenuEntity {
         this.number = number;
     }
 
-    public Set<OrderEntity> getOrderEntity() {
-        return orderEntity;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrderEntity(Set<OrderEntity> orderEntity) {
-        this.orderEntity = orderEntity;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

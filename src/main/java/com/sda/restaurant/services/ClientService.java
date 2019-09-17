@@ -1,7 +1,7 @@
 package com.sda.restaurant.services;
 
 import com.sda.restaurant.DTO.ClientDTO;
-import com.sda.restaurant.model.ClientEntity;
+import com.sda.restaurant.model.Client;
 import com.sda.restaurant.repositories.ClientRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ClientService {
     }
 
     public Long saveClient(ClientDTO client) {
-        ClientEntity clientEntity = modelMapper.map(client, ClientEntity.class);
+        Client clientEntity = modelMapper.map(client, Client.class);
 
         return clientRepository.save(clientEntity).getId();
     }
@@ -35,9 +35,9 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
-    public ClientEntity findByEmail(String email) {
-        ClientEntity clientToFind = clientRepository.findByEmail(email);
-        return modelMapper.map(clientToFind, ClientEntity.class);
+    public Client findByEmail(String email) {
+        Client clientToFind = clientRepository.findByEmail(email);
+        return modelMapper.map(clientToFind, Client.class);
     }
 
     public List<ClientDTO> getAllClients() {
@@ -49,14 +49,14 @@ public class ClientService {
     public void createClientsForPresentation(){
         if (clientRepository.count() < 8) {
             clientRepository.deleteAll();
-            clientRepository.save(new ClientEntity("John", "Wik", "johnyjohn@gmail.com", "518592019"));
-            clientRepository.save(new ClientEntity("Franklin", "Brown", "f.brooown2@gmail.com", "552674658"));
-            clientRepository.save(new ClientEntity("Benjamin", "Scott", "scott.benj@gmail.com", "715325424"));
-            clientRepository.save(new ClientEntity("Emma", "Morgan", "emm5to@outlook.com", "591783040"));
-            clientRepository.save(new ClientEntity("Evelyn", "Patterson", "eve.p0938n@hotmail.com", "500261164"));
-            clientRepository.save(new ClientEntity("Amelia", "Hughes", "amelia.mail12002@icloud.com", "656834286"));
-            clientRepository.save(new ClientEntity("William", "Richardson", "will.i.a.m.R@gmail.com", "799449706"));
-            clientRepository.save(new ClientEntity("Logan", "Foster", "logan.foster@gmail.com", "633974471"));
+            clientRepository.save(new Client("John", "Wik", "johnyjohn@gmail.com", "518592019"));
+            clientRepository.save(new Client("Franklin", "Brown", "f.brooown2@gmail.com", "552674658"));
+            clientRepository.save(new Client("Benjamin", "Scott", "scott.benj@gmail.com", "715325424"));
+            clientRepository.save(new Client("Emma", "Morgan", "emm5to@outlook.com", "591783040"));
+            clientRepository.save(new Client("Evelyn", "Patterson", "eve.p0938n@hotmail.com", "500261164"));
+            clientRepository.save(new Client("Amelia", "Hughes", "amelia.mail12002@icloud.com", "656834286"));
+            clientRepository.save(new Client("William", "Richardson", "will.i.a.m.R@gmail.com", "799449706"));
+            clientRepository.save(new Client("Logan", "Foster", "logan.foster@gmail.com", "633974471"));
         }
     }
 }

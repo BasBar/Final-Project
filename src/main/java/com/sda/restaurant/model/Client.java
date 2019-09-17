@@ -4,8 +4,8 @@ package com.sda.restaurant.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="ClientEntity")
-public class ClientEntity {
+@Table(name="client_entity")
+public class Client {
 
     @Id
     @GeneratedValue
@@ -17,12 +17,12 @@ public class ClientEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="client_id",referencedColumnName = "id")
-    private ReservationEntity reservationEntity;
+    private Reservation reservation;
 
-    public ClientEntity() {
+    public Client() {
     }
 
-    public ClientEntity(String name, String surname, String email, String phoneNumber) {
+    public Client(String name, String surname, String email, String phoneNumber) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -69,11 +69,11 @@ public class ClientEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public ReservationEntity getReservationEntity() {
-        return reservationEntity;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setReservationEntity(ReservationEntity reservationEntity) {
-        this.reservationEntity = reservationEntity;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }

@@ -2,9 +2,9 @@ package com.sda.restaurant.services;
 
 import com.sda.restaurant.DTO.OrderDTO;
 import com.sda.restaurant.form.OrderForm;
-import com.sda.restaurant.model.MenuEntity;
-import com.sda.restaurant.model.OrderEntity;
-import com.sda.restaurant.model.ReservationEntity;
+import com.sda.restaurant.model.Menu;
+import com.sda.restaurant.model.Order;
+import com.sda.restaurant.model.Reservation;
 import com.sda.restaurant.repositories.MenuRepository;
 import com.sda.restaurant.repositories.OrderRepository;
 import com.sda.restaurant.repositories.ReservationRepository;
@@ -36,34 +36,34 @@ public class OrderService {
 
     public Long addOrder(OrderForm orderForm){
 
-        ReservationEntity reservationEntity = reservationRepository.getById(orderForm.getReservationId());
+        Reservation reservation = reservationRepository.getById(orderForm.getReservationId());
         List<Long> menuIds = Arrays.asList(orderForm.getMenuIds());
 
-        Set<MenuEntity> menuToSave = menuRepository.findAll()
+        Set<Menu> menuToSave = menuRepository.findAll()
                 .stream()
-                .filter(menuEntity -> menuIds.contains(menuEntity.getId()))
+                .filter(menu -> menuIds.contains(menu.getId()))
                 .collect(Collectors.toSet());
 
         Double totalPrice = calculateTotal(orderForm);
 
-        OrderEntity orderEntity = new OrderEntity(
-                reservationEntity,
+        Order order = new Order(
+                reservation,
                 menuToSave,
                 totalPrice);
 
 
-        return orderRepository.save(orderEntity).getId();
+        return orderRepository.save(order).getId();
     }
 
     public OrderDTO setPaidOrder(Long id) {
-        OrderEntity getOrder = orderRepository.getById(id);
+        Order getOrder = orderRepository.getById(id);
         getOrder.setPaid(true);
         orderRepository.save(getOrder);
         return modelMapper.map(getOrder, OrderDTO.class);
     }
 
     public OrderDTO updateTipAmount(Long id, Float tipAmount) {
-        OrderEntity getOrder = orderRepository.getById(id);
+        Order getOrder = orderRepository.getById(id);
         getOrder.setTip(tipAmount);
         orderRepository.save(getOrder);
         return modelMapper.map(getOrder, OrderDTO.class);
@@ -71,14 +71,14 @@ public class OrderService {
 
     private Double calculateTotal(OrderForm orderForm) {
 
-        ReservationEntity reservationEntity = reservationRepository.getById(orderForm.getReservationId());
+        Reservation reservation = reservationRepository.getById(orderForm.getReservationId());
 
         List<Long> menuIds = Arrays.asList(orderForm.getMenuIds());
 
         return menuRepository.findAll()
                 .stream()
-                .filter(menuEntity -> menuIds.contains(menuEntity.getId()))
-                .mapToDouble(MenuEntity::getPrice)
+                .filter(menu -> menuIds.contains(menu.getId()))
+                .mapToDouble(Menu::getPrice)
                 .sum();
     }
 
@@ -88,9 +88,6 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    /*public Set<Long> getAllOrderMenuItems(OrderController.OrderForm orderForm){
-        return orderForm.getMenuIds();
-    }*/
     public void deleteOrderById(Long id) {
         orderRepository.deleteById(id);
     }

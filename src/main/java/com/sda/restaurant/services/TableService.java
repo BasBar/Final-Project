@@ -1,7 +1,7 @@
 package com.sda.restaurant.services;
 
 import com.sda.restaurant.DTO.TablesDTO;
-import com.sda.restaurant.model.TablesEntity;
+import com.sda.restaurant.model.Tables;
 import com.sda.restaurant.repositories.TableRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class TableService {
     }
 
     public Long saveTable(TablesDTO tables) {
-        TablesEntity tablesToSave = modelMapper.map(tables, TablesEntity.class);
+        Tables tablesToSave = modelMapper.map(tables, Tables.class);
         tablesToSave.setOccupied(false);
         return tableRepository.save(tablesToSave).getId();
     }
@@ -39,14 +39,14 @@ public class TableService {
     }
     public void updateTableToOccupied(Long[] tableId){
         List<Long>tablesToSetOccupied = Arrays.asList(tableId);
-        List<TablesEntity> foundTables = tableRepository.findAllById(tablesToSetOccupied);
+        List<Tables> foundTables = tableRepository.findAllById(tablesToSetOccupied);
         foundTables.forEach(p->p.setOccupied(true));
         foundTables.forEach(tableRepository::save);
         foundTables.forEach(p->modelMapper.map(p,TablesDTO.class));
 
     }
     public TablesDTO updateTableToNotOccupied(Long tableId){
-        TablesEntity foundTable = tableRepository.getOne(tableId);
+        Tables foundTable = tableRepository.getOne(tableId);
         foundTable.setOccupied(false);
         tableRepository.save(foundTable);
         return modelMapper.map(foundTable,TablesDTO.class);
@@ -66,18 +66,18 @@ public class TableService {
     public void createTablesForPresentation(){
         if (tableRepository.count() < 9) {
             tableRepository.deleteAll();
-            tableRepository.save(new TablesEntity(2));
-            tableRepository.save(new TablesEntity(2));
-            tableRepository.save(new TablesEntity(2));
-            tableRepository.save(new TablesEntity(4));
-            tableRepository.save(new TablesEntity(4));
-            tableRepository.save(new TablesEntity(6));
-            tableRepository.save(new TablesEntity(6));
-            tableRepository.save(new TablesEntity(6));
-            tableRepository.save(new TablesEntity(8));
-            tableRepository.save(new TablesEntity(8));
-            tableRepository.save(new TablesEntity(10));
-            tableRepository.save(new TablesEntity(10));
+            tableRepository.save(new Tables(2));
+            tableRepository.save(new Tables(2));
+            tableRepository.save(new Tables(2));
+            tableRepository.save(new Tables(4));
+            tableRepository.save(new Tables(4));
+            tableRepository.save(new Tables(6));
+            tableRepository.save(new Tables(6));
+            tableRepository.save(new Tables(6));
+            tableRepository.save(new Tables(8));
+            tableRepository.save(new Tables(8));
+            tableRepository.save(new Tables(10));
+            tableRepository.save(new Tables(10));
         }
     }
 }

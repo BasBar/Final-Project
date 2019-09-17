@@ -1,13 +1,13 @@
 package com.sda.restaurant.DTO;
 
-import com.sda.restaurant.model.ReservationEntity;
+import com.sda.restaurant.model.Reservation;
 import java.util.Set;
 
 public class OrderDTO {
 
     private Long id;
-    private ReservationEntity reservation;
-    private Set<MenuDTO> menu;
+    private Reservation reservation;
+    private Set<MenuDTO> menus;
     private Double totalPrice;
     private Boolean Paid = false;
     private Float tip;
@@ -23,20 +23,20 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public ReservationEntity getReservation() {
+    public Reservation getReservation() {
         return reservation;
     }
 
-    public void setReservation(ReservationEntity reservation) {
+    public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
 
-    public Set<MenuDTO> getMenu() {
-        return menu;
+    public Set<MenuDTO> getMenus() {
+        return menus;
     }
 
-    public void setMenu(Set<MenuDTO> menu) {
-        this.menu = menu;
+    public void setMenus(Set<MenuDTO> menus) {
+        this.menus = menus;
     }
 
     public Double getTotalPrice() {
@@ -68,7 +68,7 @@ public class OrderDTO {
         return "OrderDTO{" +
                 "id=" + id +
                 ", reservation=" + reservation +
-                ", menu=" + menu +
+                ", menu=" + menus +
                 ", totalPrice=" + totalPrice +
                 ", Paid=" + Paid +
                 ", tip=" + tip +

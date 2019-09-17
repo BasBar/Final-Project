@@ -2,7 +2,7 @@ package com.sda.restaurant.controllers;
 
 import com.sda.restaurant.DTO.ReservationDTO;
 import com.sda.restaurant.form.ReservationForm;
-import com.sda.restaurant.model.ReservationEntity;
+import com.sda.restaurant.model.Reservation;
 import com.sda.restaurant.repositories.ReservationRepository;
 import com.sda.restaurant.services.ClientService;
 import com.sda.restaurant.services.ReservationService;
@@ -48,8 +48,8 @@ public class ReservationController {
     }
 
     @GetMapping("/reservations/{id}")
-    public ReservationEntity retrieveReservation(@PathVariable Long id) throws NotFoundException {
-        Optional<ReservationEntity> reservation = reservationRepository.findById(id);
+    public Reservation retrieveReservation(@PathVariable Long id) throws NotFoundException {
+        Optional<Reservation> reservation = reservationRepository.findById(id);
         if (!reservation.isPresent()) {
             throw new NotFoundException("id- " + id);
         }

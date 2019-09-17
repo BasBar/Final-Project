@@ -49,7 +49,7 @@
                     + ${order.reservation.client.getSurname()}"></td>
 
                     <td>
-                        <div th:each="menuItem: ${order.menu}">
+                        <div th:each="menuItem: ${order.menus}">
                             <span th:text="${menuItem.name + ' ' + menuItem.price + ' PLN'}"></span>
                         </div>
                     </td>

@@ -1,10 +1,9 @@
 package com.sda.restaurant.restaurant.clientRepositoryTest;
 
 import com.sda.restaurant.controllers.ClientController;
-import com.sda.restaurant.model.ClientEntity;
+import com.sda.restaurant.model.Client;
 import com.sda.restaurant.repositories.ClientRepository;
 import com.sda.restaurant.services.ClientService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,11 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import javax.persistence.EntityManager;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -45,7 +39,7 @@ public class ClientRepositoryTest {
     @Test
     public void findClientByEmailTest() {
 
-        ClientEntity client = new ClientEntity(
+        Client client = new Client(
                 "Janusz",
                 "Kowalski",
                 "jak0007@gmail.com",
