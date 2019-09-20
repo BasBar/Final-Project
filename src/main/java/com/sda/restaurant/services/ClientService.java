@@ -25,8 +25,8 @@ public class ClientService {
         this.modelMapper = modelMapper;
     }
 
-    public Long saveClient(ClientDTO client) {
-        Client clientEntity = modelMapper.map(client, Client.class);
+    public Long saveClient(ClientDTO clientDTO) {
+        Client clientEntity = modelMapper.map(clientDTO, Client.class);
 
         return clientRepository.save(clientEntity).getId();
     }
