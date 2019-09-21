@@ -32,17 +32,15 @@ public class ClientServiceTest {
     private ClientDTO clientDTO = new ClientDTO();
 
     @Before
-    public void setUp(){
-        when(modelMapper.map(any(),any())).thenReturn(client);
+    public void setUp() {
+        when(modelMapper.map(any(), any())).thenReturn(client);
     }
 
     @Test
-    public void whenSaveClientItShouldReturnItsId(){
-
-        when(clientRepository.save(any(Client.class))).thenReturn(new Client());
-
+    public void whenSaveClientItShouldReturnItsId() {
+        client.setId(5L);
+        when(clientRepository.save(any(Client.class))).thenReturn(client);
         Long created = clientService.saveClient(clientDTO);
         assertThat(created).isEqualTo(client.getId());
-
     }
 }

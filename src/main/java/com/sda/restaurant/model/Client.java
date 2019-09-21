@@ -1,10 +1,9 @@
 package com.sda.restaurant.model;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="client_entity")
+@Table(name = "client_entity")
 public class Client {
 
     @Id
@@ -16,7 +15,7 @@ public class Client {
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="client_id",referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Reservation reservation;
 
     public Client() {

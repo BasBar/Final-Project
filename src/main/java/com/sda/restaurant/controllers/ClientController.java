@@ -1,6 +1,5 @@
 package com.sda.restaurant.controllers;
 
-
 import com.sda.restaurant.DTO.ClientDTO;
 import com.sda.restaurant.model.Client;
 import com.sda.restaurant.services.ClientService;
@@ -43,7 +42,6 @@ public class ClientController {
         redirectView.setUrl("/allClientsPage");
         return redirectView;
     }
-
 
     private void setupModel(Model model) {
         List<ClientDTO> allClients = clientService.getAllClients();

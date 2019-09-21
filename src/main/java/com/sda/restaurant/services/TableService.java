@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class TableService {
 
     private final TableRepository tableRepository;
-
     private final ModelMapper modelMapper;
 
     @Autowired
@@ -32,24 +31,25 @@ public class TableService {
         return tableRepository.save(tablesToSave).getId();
     }
 
-    public List<TablesDTO> getAllTables(){
+    public List<TablesDTO> getAllTables() {
         return tableRepository.findAll(Sort.by(Sort.Direction.ASC, "size")).stream()
                 .map(tables -> modelMapper.map(tables, TablesDTO.class))
                 .collect(Collectors.toList());
     }
-    public void updateTableToOccupied(Long[] tableId){
-        List<Long>tablesToSetOccupied = Arrays.asList(tableId);
-        List<Tables> foundTables = tableRepository.findAllById(tablesToSetOccupied);
-        foundTables.forEach(p->p.setOccupied(true));
-        foundTables.forEach(tableRepository::save);
-        foundTables.forEach(p->modelMapper.map(p,TablesDTO.class));
 
+    public void updateTableToOccupied(Long[] tableId) {
+        List<Long> tablesToSetOccupied = Arrays.asList(tableId);
+        List<Tables> foundTables = tableRepository.findAllById(tablesToSetOccupied);
+        foundTables.forEach(p -> p.setOccupied(true));
+        foundTables.forEach(tableRepository::save);
+        foundTables.forEach(p -> modelMapper.map(p, TablesDTO.class));
     }
-    public TablesDTO updateTableToNotOccupied(Long tableId){
+
+    public TablesDTO updateTableToNotOccupied(Long tableId) {
         Tables foundTable = tableRepository.getOne(tableId);
         foundTable.setOccupied(false);
         tableRepository.save(foundTable);
-        return modelMapper.map(foundTable,TablesDTO.class);
+        return modelMapper.map(foundTable, TablesDTO.class);
     }
 
     /*public List<TablesDTO> getAllUnoccupiedTables(){
@@ -58,12 +58,13 @@ public class TableService {
                 .map(tables -> modelMapper.map(tables, TablesDTO.class))
                 .collect(Collectors.toList());
     }*/
-    public void deleteTableById(List<Long> id){
+
+    public void deleteTableById(List<Long> id) {
         tableRepository.findAllById(id).forEach(tableRepository::delete);
     }
 
     @PostConstruct
-    public void createTablesForPresentation(){
+    public void createTablesForPresentation() {
         if (tableRepository.count() < 9) {
             tableRepository.deleteAll();
             tableRepository.save(new Tables(2));

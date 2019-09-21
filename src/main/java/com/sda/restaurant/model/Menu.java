@@ -1,13 +1,9 @@
 package com.sda.restaurant.model;
 
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * This class contains information about the menu items in the restaurant
- */
 @Entity
 @Table(name = "menu_entity")
 public class Menu {
@@ -20,7 +16,7 @@ public class Menu {
     private String name;
     private Float price;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "menus")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "menus")
     private Set<Order> orders = new HashSet<>();
 
     public Menu() {

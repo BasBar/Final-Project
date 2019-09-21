@@ -24,26 +24,25 @@ public class MenuService {
         this.modelMapper = modelMapper;
     }
 
-    public Long saveMenu(MenuDTO menu){
-        Menu menu1 = modelMapper.map(menu, Menu.class);
-        return menuRepository.save(menu1).getId();
+    public Long saveMenu(MenuDTO menuDTO) {
+        Menu menu = modelMapper.map(menuDTO, Menu.class);
+        return menuRepository.save(menu).getId();
     }
 
-    public List<MenuDTO> getAllMenus(){
-        return menuRepository.findAll(Sort.by(Sort.Direction.ASC,"number")).stream()
+    public List<MenuDTO> getAllMenus() {
+        return menuRepository.findAll(Sort.by(Sort.Direction.ASC, "number")).stream()
                 .map(menu -> modelMapper.map(menu, MenuDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public MenuDTO findByCategory (String category){
+    public MenuDTO findByCategory(String category) {
         Menu menuToFind = menuRepository.findByCategory(category);
         return modelMapper.map(menuToFind, MenuDTO.class);
     }
 
-    public void deleteMenuById(Long id){
+    public void deleteMenuById(Long id) {
         menuRepository.deleteById(id);
     }
-
 
     @PostConstruct
     public void createMenuForPresentation() {

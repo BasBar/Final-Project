@@ -1,11 +1,11 @@
 package com.sda.restaurant.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "reservation_entity")
@@ -27,9 +27,8 @@ public class Reservation {
     private Set<Tables> tables = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="reservation_id",referencedColumnName = "id")
+    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     private Order order;
-
 
     public Reservation() {
     }

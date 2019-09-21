@@ -1,6 +1,5 @@
 package com.sda.restaurant.controllers;
 
-
 import com.sda.restaurant.DTO.MenuDTO;
 import com.sda.restaurant.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,40 +16,41 @@ public class MenuController {
     private MenuService menuService;
 
     @Autowired
-    public MenuController(MenuService menuService) { this.menuService = menuService; }
+    public MenuController(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
     @GetMapping("/allMenusPage")
-    public String displayAllMenus(Model model){
+    public String displayAllMenus(Model model) {
         setupModel(model);
         return "allMenusPage";
     }
 
     @GetMapping("/ristoranteMenu")
-    public String displayMenusUnsecured(Model model){
+    public String displayMenusUnsecured(Model model) {
         setupModel(model);
         return "ristoranteMenu";
     }
 
     @PostMapping("/addMenuAction")
-    public RedirectView addNewMenu(@ModelAttribute("newMenu") MenuDTO menu){
+    public RedirectView addNewMenu(@ModelAttribute("newMenu") MenuDTO menu) {
         menuService.saveMenu(menu);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/allMenusPage");
         return redirectView;
     }
 
-    private void setupModel(Model model){
+    private void setupModel(Model model) {
         List<MenuDTO> allMenus = menuService.getAllMenus();
-        model.addAttribute("allMenus",allMenus);
-        model.addAttribute("newMenu",new MenuDTO());
+        model.addAttribute("allMenus", allMenus);
+        model.addAttribute("newMenu", new MenuDTO());
     }
 
     @DeleteMapping("deleteMenuAction/{deleteMenuId}")
-    public RedirectView deleteMenu(@PathVariable Long deleteMenuId){
+    public RedirectView deleteMenu(@PathVariable Long deleteMenuId) {
         menuService.deleteMenuById(deleteMenuId);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/allMenusPage");
         return redirectView;
     }
-
 }

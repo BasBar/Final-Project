@@ -34,23 +34,21 @@ public class OrderService {
         this.reservationRepository = reservationRepository;
     }
 
-    public Long addOrder(OrderForm orderForm){
+    public Long addOrder(OrderForm orderForm) {
 
         Reservation reservation = reservationRepository.getById(orderForm.getReservationId());
         List<Long> menuIds = Arrays.asList(orderForm.getMenuIds());
+        Double totalPrice = calculateTotal(orderForm);
 
         Set<Menu> menuToSave = menuRepository.findAll()
                 .stream()
                 .filter(menu -> menuIds.contains(menu.getId()))
                 .collect(Collectors.toSet());
 
-        Double totalPrice = calculateTotal(orderForm);
-
         Order order = new Order(
                 reservation,
                 menuToSave,
                 totalPrice);
-
 
         return orderRepository.save(order).getId();
     }
@@ -70,8 +68,6 @@ public class OrderService {
     }
 
     private Double calculateTotal(OrderForm orderForm) {
-
-        Reservation reservation = reservationRepository.getById(orderForm.getReservationId());
 
         List<Long> menuIds = Arrays.asList(orderForm.getMenuIds());
 

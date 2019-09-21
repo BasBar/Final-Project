@@ -7,7 +7,8 @@ public class OrderForm {
     private Boolean isPaid = false;
     private Float tip;
 
-    public OrderForm() {}
+    public OrderForm() {
+    }
 
     public OrderForm(Long[] menuIds) {
         this.menuIds = menuIds;

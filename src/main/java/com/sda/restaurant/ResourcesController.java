@@ -7,5 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ResourcesController {
 
     @GetMapping("/fragments")
-    public String thymeleafFragments(){ return "fragments"; }
+    public String thymeleafFragments() {
+        return "fragments";
+    }
 }

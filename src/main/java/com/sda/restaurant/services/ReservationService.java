@@ -37,7 +37,6 @@ public class ReservationService {
     public Long saveReservation(ReservationForm reservationForm) {
 
         Client clientToSave = clientRepository.getOne(reservationForm.getClientId());
-
         List<Long> getTables = Arrays.asList(reservationForm.getTablesId());
 
         Set<Tables> tablesToSave = tableRepository.findAll()
@@ -61,7 +60,7 @@ public class ReservationService {
     public void deleteReservationById(Long id) {
         Reservation reservationToDelete = reservationRepository.getById(id);
         Set<Tables> getTables = reservationToDelete.getTables();
-        for (Tables tables : getTables){
+        for (Tables tables : getTables) {
             tables.setOccupied(false);
         }
         reservationRepository.deleteById(id);
@@ -77,6 +76,4 @@ public class ReservationService {
                 .map(reservationEntity -> modelMapper.map(reservationEntity, ReservationDTO.class))
                 .collect(Collectors.toList());
     }
-
-
 }

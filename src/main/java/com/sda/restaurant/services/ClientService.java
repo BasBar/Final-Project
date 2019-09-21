@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-
     private final ModelMapper modelMapper;
 
     @Autowired
@@ -27,7 +26,6 @@ public class ClientService {
 
     public Long saveClient(ClientDTO clientDTO) {
         Client clientEntity = modelMapper.map(clientDTO, Client.class);
-
         return clientRepository.save(clientEntity).getId();
     }
 
@@ -45,8 +43,9 @@ public class ClientService {
                 .map(client -> modelMapper.map(client, ClientDTO.class))
                 .collect(Collectors.toList());
     }
+
     @PostConstruct
-    public void createClientsForPresentation(){
+    public void createClientsForPresentation() {
         if (clientRepository.count() < 8) {
             clientRepository.deleteAll();
             clientRepository.save(new Client("John", "Wik", "johnyjohn@gmail.com", "518592019"));

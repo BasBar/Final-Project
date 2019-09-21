@@ -4,10 +4,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
-/**
- * This class is for table object used in restaurants.
- */
 @Entity
 @Table(name = "table_entity")
 public class Tables {

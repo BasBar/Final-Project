@@ -10,5 +10,4 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     Reservation getById(Long id);
     Optional<Reservation> findById(Long id);
-
 }

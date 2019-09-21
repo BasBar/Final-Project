@@ -21,7 +21,7 @@ public class ClientRepositoryTest {
     private ClientRepository clientRepository;
 
     @Before
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -33,9 +33,9 @@ public class ClientRepositoryTest {
                 "Kowalski",
                 "jak0007@gmail.com",
                 "510599522");
+
         clientRepository.save(client);
         when(clientRepository.findByEmail("jak0007@gmail.com")).thenReturn(client);
         assertEquals(client, clientRepository.findByEmail("jak0007@gmail.com"));
-
     }
 }

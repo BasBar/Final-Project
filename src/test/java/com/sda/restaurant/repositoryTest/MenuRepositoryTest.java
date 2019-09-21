@@ -32,6 +32,7 @@ public class MenuRepositoryTest {
                 "Pepsi",
                 5.5F);
 
+        menuRepository.save(menu);
         when(menuRepository.findByCategory("Drink")).thenReturn(menu);
         assertEquals(menu,menuRepository.findByCategory("Drink"));
     }

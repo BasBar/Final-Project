@@ -21,13 +21,13 @@ public class TableController {
     }
 
     @GetMapping("/tablesPage")
-    public String displayAllTables(Model model){
+    public String displayAllTables(Model model) {
         setupModel(model);
         return "tablesPage";
     }
 
     @PostMapping("/updateTableToOccupied/{id}")
-    public RedirectView updateTableToOccupied(@PathVariable Long[] id){
+    public RedirectView updateTableToOccupied(@PathVariable Long[] id) {
         tableService.updateTableToOccupied(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("allReservationsPage");
@@ -43,14 +43,14 @@ public class TableController {
     }
 
     @DeleteMapping("/deleteTableAction/{deleteTableId}")
-    public RedirectView deleteTable(@PathVariable List<Long> deleteTableId){
+    public RedirectView deleteTable(@PathVariable List<Long> deleteTableId) {
         tableService.deleteTableById(deleteTableId);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/tablesPage");
         return redirectView;
     }
 
-    private void setupModel(Model model){
+    private void setupModel(Model model) {
         List<TablesDTO> allTables = tableService.getAllTables();
         model.addAttribute("allTables", allTables);
         model.addAttribute("newTable", new TablesDTO());
