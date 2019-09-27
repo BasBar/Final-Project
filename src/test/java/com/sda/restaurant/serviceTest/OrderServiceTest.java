@@ -4,7 +4,9 @@ import com.sda.restaurant.form.OrderForm;
 import com.sda.restaurant.model.Menu;
 import com.sda.restaurant.model.Order;
 import com.sda.restaurant.model.Reservation;
+import com.sda.restaurant.repositories.MenuRepository;
 import com.sda.restaurant.repositories.OrderRepository;
+import com.sda.restaurant.repositories.ReservationRepository;
 import com.sda.restaurant.services.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,12 @@ public class OrderServiceTest {
 
     @Mock
     OrderRepository orderRepository;
+
+    @Mock
+    ReservationRepository reservationRepository;
+
+    @Mock
+    MenuRepository menuRepository;
 
     @InjectMocks
     OrderService orderService;
