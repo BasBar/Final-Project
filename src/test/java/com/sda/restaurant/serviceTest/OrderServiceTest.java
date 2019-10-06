@@ -8,6 +8,7 @@ import com.sda.restaurant.repositories.MenuRepository;
 import com.sda.restaurant.repositories.OrderRepository;
 import com.sda.restaurant.repositories.ReservationRepository;
 import com.sda.restaurant.services.OrderService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,29 +37,33 @@ public class OrderServiceTest {
     @InjectMocks
     OrderService orderService;
 
-    @Test
-    public void whenAddOrderShouldReturnItsId(){
+    Double totalPrice;
+    Menu menu;
+    Menu menu2;
+    OrderForm orderForm;
+    Reservation reservation;
+    Set<Menu> menus;
+    Order order;
 
-        Double totalPrice = 5d;
-
-        Menu menu = new Menu();
-        Menu menu2 = new Menu();
-
-        OrderForm orderForm = new OrderForm();
+    @Before
+    public void setUp() {
+        totalPrice = 5d;
+        menu = new Menu();
+        menu2 = new Menu();
+        orderForm = new OrderForm();
         orderForm.setReservationId(5L);
         orderForm.setMenuIds(new Long[]{3L, 4L});
-
-        Reservation reservation = new Reservation();
-
-        Set<Menu> menus = new HashSet<>();
+        reservation = new Reservation();
+        menus = new HashSet<>();
         menus.add(menu);
         menus.add(menu2);
-
-        Order order = new Order (reservation,menus,totalPrice);
+        order = new Order (reservation,menus,totalPrice);
         order.setId(4L);
+    }
+    @Test
+    public void whenAddOrderShouldReturnItsId(){
         when(orderRepository.save(any())).thenReturn(order);
         Long created = orderService.addOrder(orderForm);
         assertThat(created).isEqualTo(order.getId());
-
     }
 }
