@@ -28,17 +28,20 @@ public class MenuServiceTest {
     @Mock
     ModelMapper modelMapper;
 
-    private Menu menu = new Menu();
-    private MenuDTO menuDTO = new MenuDTO();
+    Menu menu;
+    MenuDTO menuDTO;
 
     @Before
     public void setUp() {
-        when(modelMapper.map(any(), any())).thenReturn(menu);
+        menu = new Menu();
+        menuDTO = new MenuDTO();
+        menu.setId(5L);
+
     }
 
     @Test
     public void whenSaveMenuItShouldReturnItsId() {
-        menu.setId(5L);
+        when(modelMapper.map(any(), any())).thenReturn(menu);
         when(menuRepository.save(any(Menu.class))).thenReturn(menu);
         Long created = menuService.saveMenu(menuDTO);
         assertThat(created).isEqualTo(menu.getId());
