@@ -28,17 +28,19 @@ public class ClientServiceTest {
     @InjectMocks
     private ClientService clientService;
 
-    private Client client = new Client();
-    private ClientDTO clientDTO = new ClientDTO();
+    Client client;
+    ClientDTO clientDTO;
 
     @Before
     public void setUp() {
+        client = new Client();
+        clientDTO = new ClientDTO();
+        client.setId(5L);
         when(modelMapper.map(any(), any())).thenReturn(client);
     }
 
     @Test
     public void whenSaveClientItShouldReturnItsId() {
-        client.setId(5L);
         when(clientRepository.save(any(Client.class))).thenReturn(client);
         Long created = clientService.saveClient(clientDTO);
         assertThat(created).isEqualTo(client.getId());
