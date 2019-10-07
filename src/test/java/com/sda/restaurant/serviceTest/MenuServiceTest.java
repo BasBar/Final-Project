@@ -14,7 +14,7 @@ import org.modelmapper.ModelMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MenuServiceTest {
@@ -28,8 +28,8 @@ public class MenuServiceTest {
     @Mock
     ModelMapper modelMapper;
 
-    Menu menu;
-    MenuDTO menuDTO;
+    private Menu menu;
+    private MenuDTO menuDTO;
 
     @Before
     public void setUp() {
@@ -45,5 +45,11 @@ public class MenuServiceTest {
         when(menuRepository.save(any(Menu.class))).thenReturn(menu);
         Long created = menuService.saveMenu(menuDTO);
         assertThat(created).isEqualTo(menu.getId());
+    }
+
+    @Test
+    public void deleteMenuByIdTest(){
+        menuService.deleteMenuById(menu.getId());
+        verify(menuRepository,times(1)).deleteById(menu.getId());
     }
 }
