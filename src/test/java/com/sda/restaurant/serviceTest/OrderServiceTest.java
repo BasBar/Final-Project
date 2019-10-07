@@ -20,7 +20,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceTest {
@@ -37,13 +37,13 @@ public class OrderServiceTest {
     @InjectMocks
     OrderService orderService;
 
-    Double totalPrice;
-    Menu menu;
-    Menu menu2;
-    OrderForm orderForm;
-    Reservation reservation;
-    Set<Menu> menus;
-    Order order;
+    private Double totalPrice;
+    private Menu menu;
+    private Menu menu2;
+    private OrderForm orderForm;
+    private Reservation reservation;
+    private Set<Menu> menus;
+    private Order order;
 
     @Before
     public void setUp() {
@@ -61,9 +61,14 @@ public class OrderServiceTest {
         order.setId(4L);
     }
     @Test
-    public void whenAddOrderShouldReturnItsId(){
+    public void whenAddOrderShouldReturnItsIdTest(){
         when(orderRepository.save(any())).thenReturn(order);
         Long created = orderService.addOrder(orderForm);
         assertThat(created).isEqualTo(order.getId());
+    }
+    @Test
+    public void deleteOrderByIdTest(){
+        orderService.deleteOrderById(order.getId());
+        verify(orderRepository,times(1)).deleteById(order.getId());
     }
 }
