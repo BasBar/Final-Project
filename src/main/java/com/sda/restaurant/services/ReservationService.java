@@ -58,12 +58,14 @@ public class ReservationService {
     }
 
     public void deleteReservationById(Long id) {
+        reservationRepository.deleteById(id);
+    }
+    public void setTablesToUnoccupiedWhenReservationDelete(Long id){
         Reservation reservationToDelete = reservationRepository.getById(id);
         Set<Tables> getTables = reservationToDelete.getTables();
         for (Tables tables : getTables) {
             tables.setOccupied(false);
         }
-        reservationRepository.deleteById(id);
     }
 
     public ReservationDTO getReservationById(Long id) {
