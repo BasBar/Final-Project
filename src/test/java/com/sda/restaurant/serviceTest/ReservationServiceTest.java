@@ -1,7 +1,6 @@
 package com.sda.restaurant.serviceTest;
 
 import com.sda.restaurant.form.ReservationForm;
-import com.sda.restaurant.model.Client;
 import com.sda.restaurant.model.Reservation;
 import com.sda.restaurant.model.Tables;
 import com.sda.restaurant.repositories.ClientRepository;
@@ -14,15 +13,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReservationServiceTest {
@@ -39,10 +36,10 @@ public class ReservationServiceTest {
     @InjectMocks
     ReservationService reservationService;
 
-    Set<Tables> tablesSet;
-    Tables tables1;
-    ReservationForm reservationForm;
-    Reservation reservation;
+    private Set<Tables> tablesSet;
+    private Tables tables1;
+    private ReservationForm reservationForm;
+    private Reservation reservation;
 
     @Before
     public void setUp() {
@@ -60,5 +57,11 @@ public class ReservationServiceTest {
         when(reservationRepository.save(any())).thenReturn(reservation);
         Long created = reservationService.saveReservation(reservationForm);
         assertThat(created).isEqualTo(5L);
+    }
+
+    @Test
+    public void deleteReservationByIdTest(){
+        reservationService.deleteReservationById(reservation.getId());
+        verify(reservationRepository,times(1)).deleteById(reservation.getId());
     }
 }
