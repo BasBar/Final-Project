@@ -14,7 +14,7 @@ import org.modelmapper.ModelMapper;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceTest {
@@ -28,21 +28,28 @@ public class ClientServiceTest {
     @InjectMocks
     private ClientService clientService;
 
-    Client client;
-    ClientDTO clientDTO;
+    private Client client;
+    private ClientDTO clientDTO;
 
     @Before
     public void setUp() {
         client = new Client();
         clientDTO = new ClientDTO();
         client.setId(5L);
-        when(modelMapper.map(any(), any())).thenReturn(client);
+
     }
 
     @Test
     public void whenSaveClientItShouldReturnItsId() {
+        when(modelMapper.map(any(), any())).thenReturn(client);
         when(clientRepository.save(any(Client.class))).thenReturn(client);
         Long created = clientService.saveClient(clientDTO);
         assertThat(created).isEqualTo(client.getId());
+    }
+
+    @Test
+    public void deleteClientByIdTest(){
+        clientService.deleteClientById(client.getId());
+        verify(clientRepository,times(1)).deleteById(client.getId());
     }
 }
