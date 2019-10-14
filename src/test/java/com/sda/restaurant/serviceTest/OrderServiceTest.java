@@ -1,5 +1,6 @@
 package com.sda.restaurant.serviceTest;
 
+import com.sda.restaurant.DTO.OrderDTO;
 import com.sda.restaurant.form.OrderForm;
 import com.sda.restaurant.model.Menu;
 import com.sda.restaurant.model.Order;
@@ -14,8 +15,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -34,6 +39,9 @@ public class OrderServiceTest {
     @Mock
     MenuRepository menuRepository;
 
+    @Mock
+    ModelMapper modelMapper;
+
     @InjectMocks
     OrderService orderService;
 
@@ -44,6 +52,9 @@ public class OrderServiceTest {
     private Reservation reservation;
     private Set<Menu> menus;
     private Order order;
+    private List<Order> orderList;
+    private OrderDTO orderDTO;
+    private List<OrderDTO> orderDTOList;
 
     @Before
     public void setUp() {
@@ -59,6 +70,12 @@ public class OrderServiceTest {
         menus.add(menu2);
         order = new Order (reservation,menus,totalPrice);
         order.setId(4L);
+        orderList = new ArrayList<>();
+        orderList.add(order);
+        orderDTO = new OrderDTO();
+        orderDTO.setId(3L);
+        orderDTOList = new ArrayList<>();
+        orderDTOList.add(orderDTO);
     }
     @Test
     public void whenAddOrderShouldReturnItsIdTest(){
@@ -70,5 +87,13 @@ public class OrderServiceTest {
     public void deleteOrderByIdTest(){
         orderService.deleteOrderById(order.getId());
         verify(orderRepository,times(1)).deleteById(order.getId());
+    }
+
+    @Test
+    public void getAllOrdersTest(){
+        when(modelMapper.map(any(),any())).thenReturn(orderDTO);
+        when(orderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))).thenReturn(orderList);
+        List<OrderDTO> result = orderService.getAllOrders();
+        assertThat(result).isEqualTo(orderDTOList);
     }
 }
