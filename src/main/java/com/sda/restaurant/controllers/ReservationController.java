@@ -58,7 +58,7 @@ public class ReservationController {
 
     @DeleteMapping("/deleteReservationAction/{id}")
     public RedirectView deleteReservation(@PathVariable Long id) {
-        reservationService.setTablesToUnoccupiedWhenReservationDelete(id);
+        reservationService.setTablesToUnoccupied(id);
         reservationService.deleteReservationById(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/allReservationsPage");

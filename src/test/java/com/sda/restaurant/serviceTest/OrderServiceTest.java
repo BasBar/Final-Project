@@ -96,4 +96,19 @@ public class OrderServiceTest {
         List<OrderDTO> result = orderService.getAllOrders();
         assertThat(result).isEqualTo(orderDTOList);
     }
+
+    @Test
+    public void setPaidOrderTest(){
+        when(orderRepository.getById(any())).thenReturn(order);
+        when(modelMapper.map(Order.class,OrderDTO.class)).thenReturn(orderDTO);
+        orderService.setPaidOrder(4L);
+        assertThat(order.getPaid()).isTrue();
+    }
+    @Test
+    public void updateTipAmountTest(){
+        when(orderRepository.getById(any())).thenReturn(order);
+        when(modelMapper.map(Order.class,OrderDTO.class)).thenReturn(orderDTO);
+        orderService.updateTipAmount(4L,5.5F);
+        assertThat(order.getTip()).isEqualTo(5.5F);
+    }
 }

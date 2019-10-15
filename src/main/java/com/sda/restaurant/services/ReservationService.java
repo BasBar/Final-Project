@@ -60,7 +60,7 @@ public class ReservationService {
     public void deleteReservationById(Long id) {
         reservationRepository.deleteById(id);
     }
-    public void setTablesToUnoccupiedWhenReservationDelete(Long id){
+    public void setTablesToUnoccupied(Long id){
         Reservation reservationToDelete = reservationRepository.getById(id);
         Set<Tables> getTables = reservationToDelete.getTables();
         for (Tables tables : getTables) {
