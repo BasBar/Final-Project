@@ -55,6 +55,7 @@ public class OrderServiceTest {
     private List<Order> orderList;
     private OrderDTO orderDTO;
     private List<OrderDTO> orderDTOList;
+    private List<Menu> menuList;
 
     @Before
     public void setUp() {
@@ -63,7 +64,7 @@ public class OrderServiceTest {
         menu2 = new Menu();
         orderForm = new OrderForm();
         orderForm.setReservationId(5L);
-        orderForm.setMenuIds(new Long[]{3L, 4L});
+        orderForm.setMenuIds(new Long[]{1L, 2L});
         reservation = new Reservation();
         menus = new HashSet<>();
         menus.add(menu);
@@ -76,6 +77,13 @@ public class OrderServiceTest {
         orderDTO.setId(3L);
         orderDTOList = new ArrayList<>();
         orderDTOList.add(orderDTO);
+        menu.setPrice(4F);
+        menu2.setPrice(5F);
+        menu.setId(1L);
+        menu2.setId(2L);
+        menuList = new ArrayList<>();
+        menuList.add(menu);
+        menuList.add(menu2);
     }
     @Test
     public void whenAddOrderShouldReturnItsIdTest(){
@@ -110,5 +118,11 @@ public class OrderServiceTest {
         when(modelMapper.map(Order.class,OrderDTO.class)).thenReturn(orderDTO);
         orderService.updateTipAmount(4L,5.5F);
         assertThat(order.getTip()).isEqualTo(5.5F);
+    }
+    @Test
+    public void calculateTotalTest(){
+        when(menuRepository.findAll()).thenReturn(menuList);
+        Double result = orderService.calculateTotal(orderForm);
+        assertThat(result).isEqualTo(9L);
     }
 }

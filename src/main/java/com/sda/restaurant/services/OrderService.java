@@ -67,7 +67,7 @@ public class OrderService {
         return modelMapper.map(getOrder, OrderDTO.class);
     }
 
-    private Double calculateTotal(OrderForm orderForm) {
+    public Double calculateTotal(OrderForm orderForm) {
 
         List<Long> menuIds = Arrays.asList(orderForm.getMenuIds());
 
